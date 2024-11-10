@@ -17,12 +17,12 @@ variable "node_group_name" {
 
 variable "node_role_arn" {
   description = "The ARN of the IAM role for the node group."
-  type        = string
+  type        = any
 }
 
 variable "subnets" {
   description = "The subnets IDs where the EKS node group will be deployed."
-  type        = list(string)
+  type        = any
 }
 
 variable "desired_capacity" {
