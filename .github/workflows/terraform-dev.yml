@@ -53,5 +53,5 @@ jobs:
         working-directory: ./infra-1/environment/dev
 
       - name: Security Check
-        run: terraform validate -check-variables=false
+        run: terraform validate
         working-directory: ./infra-1/environment/dev
