@@ -18,7 +18,7 @@ module "vpc" {
 }
 
 module "eks_cluster" {
-  source = "../../modules/eks-cluster"
+  source = "../../modules/eks-kubernetes-cluster"
 
   region          = "eu-central-1"
   cluster_name    = "dev-cluster"
@@ -28,7 +28,7 @@ module "eks_cluster" {
 }
 
 module "node_pools" {
-  source = "../../modules/node-pools"
+  source = "../../modules/eks-node-group"
 
   region           = "eu-central-1"
   cluster_name     = module.eks_cluster.cluster_id
