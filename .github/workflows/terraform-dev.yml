@@ -41,12 +41,12 @@ jobs:
         working-directory: ./infra-1/environment/dev
 
      # - name: Terraform Plan
-     #  run: terraform plan -out=tfplan
+     #   run: terraform plan -out=tfplan -var-file="dev.tfvars"
      #   working-directory: ./infra-1/environment/dev
 
      # - name: Terraform Apply
-     #   if: github.ref == 'refs/heads/main'
-     #   run: terraform apply -auto-approve tfplan
+     #   run: terraform apply -auto-approve tfplan -var-file="dev.tfvars"
+     #   working-directory: ./infra-1/environment/dev
 
       - name: Lint Terraform
         run: terraform fmt -check
