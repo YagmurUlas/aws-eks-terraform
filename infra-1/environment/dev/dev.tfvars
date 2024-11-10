@@ -1,0 +1,14 @@
+region          = "eu-central-1"
+cluster_name    = "dev-cluster"
+cluster_version = "1.21"
+vpc_id          = "vpc-12345678"
+subnets         = ["subnet-12345678", "subnet-87654321"]
+desired_capacity = 2
+max_capacity     = 3
+min_capacity     = 1
+instance_type    = "t3.medium"
+origin_domain_name = "dev.example.com"
+secret_name        = "dev-secret"
+secret_description = "Development environment secret"
+username           = "dev_user"
+password           = "dev_password"

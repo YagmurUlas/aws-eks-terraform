@@ -1,0 +1,59 @@
+provider "aws" {
+  region = "eu-central-1"
+}
+
+module "vpc" {
+  source  = "terraform-aws-modules/vpc/aws"
+  version = "5.15.0"
+
+  name = "dev-vpc"
+  cidr = "10.0.0.0/16"
+
+  azs             = ["eu-central-1a", "eu-central-1b"]
+  private_subnets = ["10.0.1.0/24", "10.0.2.0/24"]
+  public_subnets  = ["10.0.3.0/24", "10.0.4.0/24"]
+
+  enable_nat_gateway = true
+  single_nat_gateway = true
+}
+
+module "eks_cluster" {
+  source = "../modules/eks-cluster"
+
+  region          = "eu-central-1"
+  cluster_name    = "dev-cluster"
+  cluster_version = "1.21"
+  vpc_id          = module.vpc.vpc_id
+  subnets         = module.vpc.private_subnets
+}
+
+module "node_pools" {
+  source = "../modules/node-pools"
+
+  region          = "eu-central-1"
+  cluster_name    = module.eks_cluster.cluster_id
+  node_group_name = "dev-node-group"
+  node_role_arn   = module.eks_cluster.node_groups["eks_nodes"].iam_role_arn
+  subnets         = module.vpc.private_subnets
+  desired_capacity = 2
+  max_capacity     = 3
+  min_capacity     = 1
+  instance_type    = "t3.medium"
+}
+
+module "cdn" {
+  source = "../modules/cdn"
+
+  region            = "us-east-1"
+  origin_domain_name = "example.com"
+}
+
+module "secrets" {
+  source = "../modules/secrets"
+
+  region             = "us-east-1"
+  secret_name        = "dev-secret"
+  secret_description = "Development environment secret"
+  username           = "dev_user"
+  password           = "dev_password"
+}
