@@ -21,15 +21,21 @@ jobs:
         uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: 1.0.0
+          
+      - name: Terraform Fmt
+        run: terraform fmt -recursive
 
       - name: Terraform Init
         run: terraform init
+        working-directory: ./infra-1/environment/dev
 
       - name: Terraform Validate
         run: terraform validate
+        working-directory: ./infra-1/environment/dev
 
       - name: Terraform Plan
         run: terraform plan -out=tfplan
+        working-directory: ./infra-1/environment/dev
 
      # - name: Terraform Apply
      #   if: github.ref == 'refs/heads/main'
@@ -37,6 +43,8 @@ jobs:
 
       - name: Lint Terraform
         run: terraform fmt -check
+        working-directory: ./infra-1/environment/dev
 
       - name: Security Check
         run: terraform validate -check-variables=false
+        working-directory: ./infra-1/environment/dev
