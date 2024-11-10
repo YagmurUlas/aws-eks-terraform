@@ -14,8 +14,3 @@ resource "aws_secretsmanager_secret_version" "example" {
     password = var.password
   })
 }
-
-output "secret_arn" {
-  description = "The ARN of the secret."
-  value       = aws_secretsmanager_secret.example.arn
-}
