@@ -1,59 +1,57 @@
 provider "aws" {
-  region = "eu-central-1"
+  region = var.region
 }
 
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = "5.15.0"
+  version = var.vpc_version
 
-  name = "dev-vpc"
-  cidr = "10.0.0.0/16"
+  name = var.vpc_name
+  cidr = var.vpc_cidr
 
-  azs             = ["eu-central-1a", "eu-central-1b"]
-  private_subnets = ["10.0.1.0/24", "10.0.2.0/24"]
-  public_subnets  = ["10.0.3.0/24", "10.0.4.0/24"]
+  azs             = var.azs
+  private_subnets = var.private_subnets
+  public_subnets  = var.public_subnets
 
-  enable_nat_gateway = true
-  single_nat_gateway = true
+  enable_nat_gateway = var.enable_nat_gateway
+  single_nat_gateway = var.single_nat_gateway
 }
 
 module "eks_cluster" {
   source = "../../modules/eks-kubernetes-cluster"
 
-  region          = "eu-central-1"
-  cluster_name    = "dev-cluster"
-  cluster_version = "1.21"
+  region          = var.region
+  cluster_name    = var.cluster_name
+  cluster_version = var.cluster_version
   vpc_id          = module.vpc.vpc_id
-  subnets         = module.vpc.private_subnets
 }
 
 module "node_pools" {
   source = "../../modules/eks-node-group"
-
-  region           = "eu-central-1"
-  cluster_name     = module.eks_cluster.cluster_id
-  node_group_name  = "dev-node-group"
+  region           = var.region
+  cluster_name     = var.cluster_name
+  node_group_name  = var.node_group_name
   node_role_arn    = module.eks_cluster.iam_role_arn
-  subnets          = module.vpc.private_subnets
-  desired_capacity = 2
-  max_capacity     = 3
-  min_capacity     = 1
-  instance_type    = "t3.medium"
+  subnets          = var.subnets
+  desired_capacity = var.desired_capacity
+  max_capacity     = var.max_capacity
+  min_capacity     = var.min_capacity
+  instance_type    = var.instance_type
 }
 
 module "cdn" {
   source = "../../modules/cdn"
 
-  region             = "us-east-1"
-  origin_domain_name = "example.com"
+  region             = var.region
+  origin_domain_name = var.origin_domain_name
 }
 
 module "secrets" {
   source = "../../modules/secrets"
 
-  region             = "us-east-1"
-  secret_name        = "dev-secret"
-  secret_description = "Development environment secret"
-  username           = "dev_user"
-  password           = "dev_password"
+  region             = var.region
+  secret_name        = var.secret_name
+  secret_description = var.secret_description
+  username           = var.username
+  password           = var.password
 }
