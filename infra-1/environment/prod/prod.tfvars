@@ -1,8 +1,8 @@
-region          = "eu-central-1"
-cluster_name    = "prod-cluster"
-cluster_version = "1.21"
-vpc_id          = "vpc-34567890"
-subnets         = ["subnet-34567890", "subnet-09876543"]
+region           = "eu-central-1"
+cluster_name     = "prod-cluster"
+cluster_version  = "1.21"
+vpc_id           = "vpc-34567890"
+subnets          = ["subnet-34567890", "subnet-09876543"]
 desired_capacity = 3
 max_capacity     = 5
 min_capacity     = 2

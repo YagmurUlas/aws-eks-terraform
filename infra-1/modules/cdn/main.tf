@@ -17,7 +17,7 @@ resource "aws_cloudfront_distribution" "cdn" {
     cached_methods   = ["GET", "HEAD"]
     target_origin_id = "example-origin"
 
-    forwarded_values {  // how CloudFront handles query strings and cookies when forwarding requests to the origin server.
+    forwarded_values { // how CloudFront handles query strings and cookies when forwarding requests to the origin server.
       query_string = false
       cookies {
         forward = "none"

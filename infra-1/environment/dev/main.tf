@@ -18,7 +18,7 @@ module "vpc" {
 }
 
 module "eks_cluster" {
-  source = "../modules/eks-cluster"
+  source = "../../modules/eks-cluster"
 
   region          = "eu-central-1"
   cluster_name    = "dev-cluster"
@@ -28,13 +28,13 @@ module "eks_cluster" {
 }
 
 module "node_pools" {
-  source = "../modules/node-pools"
+  source = "../../modules/node-pools"
 
-  region          = "eu-central-1"
-  cluster_name    = module.eks_cluster.cluster_id
-  node_group_name = "dev-node-group"
-  node_role_arn   = module.eks_cluster.node_groups["eks_nodes"].iam_role_arn
-  subnets         = module.vpc.private_subnets
+  region           = "eu-central-1"
+  cluster_name     = module.eks_cluster.cluster_id
+  node_group_name  = "dev-node-group"
+  node_role_arn    = module.eks_cluster.node_groups["eks_nodes"].iam_role_arn
+  subnets          = module.vpc.private_subnets
   desired_capacity = 2
   max_capacity     = 3
   min_capacity     = 1
@@ -42,14 +42,14 @@ module "node_pools" {
 }
 
 module "cdn" {
-  source = "../modules/cdn"
+  source = "../../modules/cdn"
 
-  region            = "us-east-1"
+  region             = "us-east-1"
   origin_domain_name = "example.com"
 }
 
 module "secrets" {
-  source = "../modules/secrets"
+  source = "../../modules/secrets"
 
   region             = "us-east-1"
   secret_name        = "dev-secret"

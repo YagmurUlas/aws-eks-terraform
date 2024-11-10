@@ -30,11 +30,11 @@ module "eks_cluster" {
 module "node_pools" {
   source = "../modules/eks-node-group"
 
-  region          = "eu-central-1"
-  cluster_name    = module.eks_cluster.cluster_id
-  node_group_name = "staging-node-group"
-  node_role_arn   = module.eks_cluster.node_groups["eks_nodes"].iam_role_arn
-  subnets         = module.vpc.private_subnets
+  region           = "eu-central-1"
+  cluster_name     = module.eks_cluster.cluster_id
+  node_group_name  = "staging-node-group"
+  node_role_arn    = module.eks_cluster.node_groups["eks_nodes"].iam_role_arn
+  subnets          = module.vpc.private_subnets
   desired_capacity = 2
   max_capacity     = 4
   min_capacity     = 1
