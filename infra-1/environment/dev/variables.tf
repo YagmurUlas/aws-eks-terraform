@@ -49,3 +49,19 @@ variable "instance_type" {
   type        = string
   default     = "t3.medium"
 }
+variable "secret_name" {
+  type = string
+  default = "dev-secret" 
+}
+variable "secret_description" {
+  type = string
+}
+variable "username" {
+  type = string
+}
+variable "password" {
+  type = string  
+}
+variable "origin_domain_name" {
+  type = string  
+}
