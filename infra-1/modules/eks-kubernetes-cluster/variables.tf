@@ -21,7 +21,7 @@ variable "vpc_id" {
   type        = string
 }
 
-variable "subnets" {
-  description = "The subnets IDs where the EKS node group will be deployed."
-  type        = list(string)
-}
+#variable "subnets" {
+#  description = "The subnets IDs where the EKS node group will be deployed."
+#  type        = list(string)
+#}
