@@ -1,0 +1,4 @@
+replicaCount: 2
+image:
+  repository: <your-account-id>.dkr.ecr.<your-region>.amazonaws.com/nodejs-app
+  tag: latest

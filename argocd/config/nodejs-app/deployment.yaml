@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodejs-app
+  namespace: default #kubernetes
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nodejs-app
+  template:
+    metadata:
+      labels:
+        app: nodejs-app # pods tags/label name
+    spec:
+      containers:
+      - name: nodejs-app
+        image: <your-account-id>.dkr.ecr.<your-region>.amazonaws.com/nodejs-app:latest
+        ports:
+        - containerPort: 3000 #default nodejs port
