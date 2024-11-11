@@ -1,11 +1,11 @@
 variable "region" {
-  description = "AWS region to deploy the EKS cluster."
+  description = "The AWS region to deploy the EKS cluster."
   type        = string
   default     = "eu-central-1"
 }
 
 variable "cluster_name" {
-  description = "name of the EKS cluster."
+  description = "The name of the EKS cluster."
   type        = string
   default     = "dev-cluster"
 }
@@ -21,12 +21,8 @@ variable "vpc_name" {
   type        = string
 }
 
-variable "vpc_version" {
-  type = string
-}
-
 variable "vpc_cidr" {
-  type = string  
+  type = string
 }
 
 variable "subnets" {
@@ -87,8 +83,8 @@ variable "instance_type" {
   default     = "t3.medium"
 }
 variable "secret_name" {
-  type = string
-  default = "dev-secret" 
+  type    = string
+  default = "dev-secret"
 }
 variable "secret_description" {
   type = string
@@ -97,8 +93,8 @@ variable "username" {
   type = string
 }
 variable "password" {
-  type = string  
+  type = string
 }
 variable "origin_domain_name" {
-  type = string  
+  type = string
 }

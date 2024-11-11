@@ -4,7 +4,7 @@ provider "aws" {
 
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
-  version = var.vpc_version
+  version = "5.15.0"
 
   name = var.vpc_name
   cidr = var.vpc_cidr
@@ -27,7 +27,7 @@ module "eks_cluster" {
 }
 
 module "node_pools" {
-  source = "../../modules/eks-node-group"
+  source           = "../../modules/eks-node-group"
   region           = var.region
   cluster_name     = var.cluster_name
   node_group_name  = var.node_group_name
